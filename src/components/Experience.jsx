@@ -3,20 +3,16 @@ import {
   MeshReflectorMaterial,
   OrbitControls,
 } from "@react-three/drei";
-import { CylinderCollider, RigidBody } from "@react-three/rapier";
-import { useEffect } from "react";
-// import { useGameStore } from "../store";
-// import { CharacterController } from "./CharacterController";
-// import { KanaSpots } from "./KanaSpots";
+import {
+  CylinderCollider,
+  RigidBody,
+  CuboidCollider,
+} from "@react-three/rapier";
+import { CarController } from "./CarController";
 import { Text3D } from "@react-three/drei";
-import { Torii } from "./Torii";
+import { Pyramid } from "./Pyramid";
+import { Desert } from "./Desert";
 export const Experience = () => {
-  // const startGame = useGameStore((state) => state.startGame);
-
-  useEffect(() => {
-    // startGame();
-  }, []);
-
   return (
     <>
       <OrbitControls />
@@ -28,36 +24,28 @@ export const Experience = () => {
         castShadow
         color={"#9e69da"}
       />
-
       {/* BACKGROUND */}
+      <RigidBody colliders={false} type="fixed" name="void">
+        <Desert position={[0, -1.5, 0]} />
+        <CuboidCollider position={[0, -3.5, 0]} args={[50, 0.1, 50]} sensor />
+      </RigidBody>
 
-      <mesh position={[0, -1.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[50, 50]} />
-        <MeshReflectorMaterial
-          blur={[400, 400]}
-          resolution={1024}
-          mixBlur={1}
-          mixStrength={15}
-          depthScale={1}
-          minDepthThreshold={0.85}
-          color="#dbecfb"
-          metalness={0.6}
-          roughness={1}
-        />
-      </mesh>
-
-      <Torii
-        scale={[16, 16, 16]}
-        position={[0, 0, -22]}
+      <Pyramid
+        scale={[4.608, 2.932, 4.608]}
+        position={[0, -0.5, -20]}
         rotation-y={1.25 * Math.PI}
       />
-      <Torii
-        scale={[10, 10, 10]}
-        position={[-8, 0, -20]}
+      {/* <Desert scale={[100, 1, 100]} position={[0, -0.5, 0]} /> */}
+      <Pyramid
+        scale={[4.31, 2.87, 4.31]}
+        position={[-12, -0.5, -26]}
         rotation-y={1.4 * Math.PI}
       />
-      <Torii scale={[10, 10, 10]} position={[8, 0, -20]} rotation-y={Math.PI} />
-
+      <Pyramid
+        scale={[2.068, 1.31, 2.068]}
+        position={[-18, -0.5, -34]}
+        rotation-y={Math.PI}
+      />
       <group position-y={-1}>
         {/* STAGE */}
         <RigidBody
@@ -66,19 +54,19 @@ export const Experience = () => {
           position-y={-0.5}
           friction={2}
         >
-          <CylinderCollider args={[1 / 2, 5]} />
-          <Cylinder scale={[5, 1, 5]} receiveShadow>
+          <CylinderCollider args={[1 / 2, 100]} />
+          <Cylinder scale={[100, 1, 100]} receiveShadow>
             <meshStandardMaterial color="white" />
           </Cylinder>
         </RigidBody>
 
         {/* WORDS */}
         <Text3D
-          position={[-8, 1, 0]}
-          scale={[1, 1.5, 0.1]}
+          position={[-8, 2, -4]}
+          scale={[1, 1.5, 1]}
           size={1}
           maxWidth={100}
-          rotation={[(3 * Math.PI) / 2, 0, 0]}
+          rotation={[0, 0, 0]}
           font={"/fonts/pixel.json"}
           curveSegments={24}
           brevelSegments={1}
@@ -90,13 +78,30 @@ export const Experience = () => {
           letterSpacing={0.3}
         >
           The Giza Plateau
-          <meshMatcapMaterial color="#ffff99" />
+          <meshMatcapMaterial color="orange" />
+        </Text3D>
+        {/* WORDS */}
+        <Text3D
+          position={[-5, 0.5, -4]}
+          scale={[0.5, 0.5, 0.5]}
+          size={1}
+          maxWidth={100}
+          rotation={[0, 0, 0]}
+          font={"/fonts/pixel.json"}
+          curveSegments={24}
+          brevelSegments={1}
+          bevelEnabled
+          bevelSize={0.08}
+          bevelThickness={0.03}
+          height={1}
+          lineHeight={0.9}
+          letterSpacing={0.3}
+        >
+          A 3D Render By Roy Lee
+          <meshMatcapMaterial color="orange" />
         </Text3D>
         {/* CHARACTER */}
-        {/* <CharacterController /> */}
-
-        {/* KANA */}
-        {/* <KanaSpots /> */}
+        <CarController />
       </group>
     </>
   );

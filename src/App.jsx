@@ -10,6 +10,7 @@ export const Controls = {
   left: "left",
   right: "right",
   jump: "jump",
+  reset: "reset",
 };
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       { name: Controls.back, keys: ["ArrowDown", "KeyS"] },
       { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
       { name: Controls.right, keys: ["ArrowRight", "KeyD"] },
+      { name: Controls.reset, keys: ["Reset", "KeyR"] },
       { name: Controls.jump, keys: ["Space"] },
     ],
     []
@@ -27,7 +29,7 @@ function App() {
     <KeyboardControls map={map}>
       <Canvas shadows camera={{ position: [0, 6, 14], fov: 42 }}>
         <color attach="background" args={["#dbecfb"]} />
-        <fog attach="fog" args={["#dbecfb", 30, 40]} />
+        <fog attach="fog" args={["#dbecfb", 50, 100]} />
         <Suspense>
           <Physics debug>
             <Experience />
