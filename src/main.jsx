@@ -6,5 +6,6 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
+    <img className="controlKeys" src="/controls.png" alt="control keys" />
   </React.StrictMode>
 );
